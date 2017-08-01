@@ -6,12 +6,14 @@ import (
 )
 
 func main() {
-
+/*
 	log.Println( "********** STARTING COMMON SEARCH **********")
 	executeStraightFowardSearchs()
+*/
 
 	log.Println( "\n\n********** STARTING SEARCH ROUTINES **********\n\n")
 	executeInRoutines()
+
 
 }
 

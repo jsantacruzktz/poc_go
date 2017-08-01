@@ -12,19 +12,27 @@ import (
 
 
 func main() {
-    /*fmt.Println(" channelGenerator ------------------------------------- ")
+
+
+    /*
+    fmt.Println(" channelGenerator ------------------------------------- ")
+
+
 
     //Primero vemos como se comporta el patron de channel generator.
     channelGenerator()
+
 
     fmt.Println(" notMultiplexed -------------------------------------- ")
 
     //Ejecutamos tarea concurrente sin "multiplexar"
     notMultiplexed()
 
+
     fmt.Println(" multiplexed -------------------------------------- ")
 
     multiplexed()
+
 
     fmt.Println(" selectMultiplexed -------------------------------------- ")
 
@@ -34,6 +42,9 @@ func main() {
     */
 
     blowThoseRoutinesChain()
+
+
+
 
 }
 
@@ -49,20 +60,7 @@ func channelGenerator(){
     }
 }
 
-/**
-Channel generator implementation.
- */
-func generateChannel(msg string) <- chan string{
-    c := make(chan string)
-    go func(){
-        for i := 0; ; i++ {
-            c <- fmt.Sprintf("%s %d", msg, i)
-            sleepRandomlyTime( 1e3 )
-        }
-    }()
 
-    return c
-}
 
 /**
 Delays the current thread the time expressed in miliseconds.
@@ -90,6 +88,23 @@ func notMultiplexed() {
 }
 
 /**
+Channel generator implementation.
+ */
+func generateChannel(msg string) <- chan string{
+    c := make(chan string)
+
+    go func(){
+        for i := 0; ; i++ {
+            c <- fmt.Sprintf("%s %d", msg, i)
+            sleepRandomlyTime( 1e3 )
+        }
+    }()
+
+    return c
+}
+
+
+/**
 The multiplexer works like a single channel listeng a bunch of other channels and every channel post
 their news to the multiplexer channel wichs  dispatchs each new "news" from the other channels.
 
@@ -101,6 +116,7 @@ their news to the multiplexer channel wichs  dispatchs each new "news" from the 
 0----| /
  */
 func multiplexed() {
+    /*
     c := multiplexer(
         generateChannel("Joel multi message:"),
         generateChannel("Ana multi message:") )
@@ -108,6 +124,7 @@ func multiplexed() {
     for i:= 0; i<10; i++ {
         fmt.Println( <-c )
     }
+    */
 
     fmt.Println(" Lo mismo pero mas mejor -------------------- ")
 
@@ -120,6 +137,7 @@ func multiplexed() {
     for i:= 0; i<10; i++ {
         fmt.Println( <-secondC )
     }
+
 }
 
 /**
@@ -194,10 +212,12 @@ func blowThoseRoutinesChain(){
     }
 
     go func(c chan int){ c <- 1 }(chainNext)
+
     fmt.Println( <-chainBegin )
+
     elapsed := time.Since(start)
 
-    fmt.Println(elapsed)
+    fmt.Println( elapsed )
 }
 
 func sendTheMessageChain(next, owner chan int){

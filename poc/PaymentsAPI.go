@@ -5,7 +5,6 @@ import (
 	"io/ioutil"
 	"encoding/json"
 	"fmt"
-	"log"
 )
 
 type PaymentsAPI struct {
@@ -28,7 +27,7 @@ func (a *PaymentsAPI) getPaymentById( paymentId string ) PaymentDTO{
 	}
 
 	body, err := ioutil.ReadAll(resp.Body)
-	log.Println( string(body) )
+	//log.Println( string(body) )
 
 	var dto PaymentDTO
 
